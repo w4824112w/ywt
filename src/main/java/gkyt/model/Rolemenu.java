@@ -1,16 +1,18 @@
 package gkyt.model;
 
+import java.io.Serializable;
+
 /**
  * 角色菜单权限
  * @author hk
  *
  */
-public class Rolemenu {
+public class Rolemenu implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	private String menuId;
 	private String roleId;
-	private Integer menuLevel;
 	
 	public Integer getId() {
 		return id;
@@ -29,12 +31,6 @@ public class Rolemenu {
 	}
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
-	}
-	public Integer getMenuLevel() {
-		return menuLevel;
-	}
-	public void setMenuLevel(Integer menuLevel) {
-		this.menuLevel = menuLevel;
 	}
 	
 	

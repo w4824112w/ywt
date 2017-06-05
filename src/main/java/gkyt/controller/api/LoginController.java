@@ -36,7 +36,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
     public Map<String,Object> login(HttpServletRequest request, HttpServletResponse response,String loginName,String loginPwd){
-    	log.info("调用开始......");
+    	log.info("调用登录接口开始......");
     	Map<String,Object> retData=new HashMap<String,Object>();
     	
 		if(StringUtils.isBlank(loginName) || StringUtils.isBlank(loginPwd)){
@@ -73,18 +73,20 @@ public class LoginController {
 		retData.put("msg", "登录成功");
 		retData.put("data", u);
 		
-		log.info("调用结束......");
+		log.info("调用登录接口结束......");
     	return retData;
     }
 
-	/**
-	 * 退出登录
-	 * @param r
-	 * @return
-	 */
+    /**
+     * 退出登录
+     * @param request
+     * @param response
+     * @return
+     */
 	@RequestMapping(value = "/logout.do",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public Map<String,Object> logout(HttpServletRequest request, HttpServletResponse response){
+		log.info("调用退出登录接口开始......");
 		HttpSession session = request.getSession();
 		Sysuser u  = (Sysuser)session.getAttribute("s_user");
 		session.removeAttribute("s_user");		
@@ -94,6 +96,8 @@ public class LoginController {
 		retData.put("code", "0");
 		retData.put("msg", u.getLoginName()+"退出了系统");
 		retData.put("data", "");
+		
+		log.info("调用退出登录接口结束......");
     	return retData;
 	}
 }

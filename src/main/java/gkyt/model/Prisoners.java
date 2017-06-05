@@ -3,6 +3,11 @@ package gkyt.model;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 犯人信息表
+ * @author hk
+ *
+ */
 public class Prisoners implements Serializable{
 	private static final long serialVersionUID = 1L;
 
