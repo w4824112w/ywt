@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gkyt.dao.PrisonersMapper">
+	<resultMap id="BaseResultMap" type="gkyt.model.Prisoners">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="prisoner_number" property="prisonerNumber" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="VARCHAR" />
+		<result column="crimes" property="crimes" jdbcType="VARCHAR" />
+		<result column="jail_id" property="jailId" jdbcType="INTEGER" />
+		<result column="prison_term_started_at" property="prisonTermStartedAt" jdbcType="DATE" />
+		<result column="prison_term_ended_at" property="prisonTermEndedAt" jdbcType="DATE" />
+		<result column="created_at" property="createdAt" jdbcType="DATE" />
+		<result column="updated_at" property="updatedAt" jdbcType="DATE" />
+		<result column="prison_area" property="prisonArea" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="gkyt.model.Prisoners">
+	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+	      SELECT LAST_INSERT_ID()
+	    </selectKey>
+	    insert into prisoners (prisoner_number,name,gender,crimes,jail_id,prison_term_started_at,prison_term_ended_at,created_at,updated_at,prison_area)
+	    values (#{prisonerNumber,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{gender,jdbcType=VARCHAR},
+	    	#{crimes,jdbcType=VARCHAR},#{jailId,jdbcType=INTEGER},#{prisonTermStartedAt,jdbcType=TIMESTAMP},
+	    	#{prisonTermEndedAt,jdbcType=TIMESTAMP},#{createdAt,jdbcType=TIMESTAMP},#{updatedAt,jdbcType=TIMESTAMP},#{prisonArea,jdbcType=VARCHAR})
+  </insert>
+	
+	<select id="getPrisoner" parameterType="gkyt.model.Prisoners" resultMap="BaseResultMap" >
+		select 
+		*
+		from prisoners 
+		where prisoner_number = #{prisonerNumber,jdbcType=VARCHAR} 
+	</select>
+</mapper>

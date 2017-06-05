@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gkyt.dao.PrisonTermsMapper">
+	<resultMap id="BaseResultMap" type="gkyt.model.PrisonTerms">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="prisoner_id" property="prisonerId" jdbcType="INTEGER" />
+		<result column="term_start" property="termStart" jdbcType="DATE" />
+		<result column="term_finish" property="termFinish" jdbcType="DATE" />
+		<result column="created_at" property="createdAt" jdbcType="DATE" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="gkyt.model.PrisonTerms">
+	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+	      SELECT LAST_INSERT_ID()
+	    </selectKey>
+	    insert into prison_terms (prisoner_id,term_start,term_finish,created_at)
+	    values (#{prisonerId,jdbcType=INTEGER},#{termStart,jdbcType=TIMESTAMP},#{termFinish,jdbcType=TIMESTAMP},#{createdAt,jdbcType=TIMESTAMP})
+  </insert>
+	
+	<select id="getPrisonTerms" parameterType="gkyt.model.PrisonTerms" resultMap="BaseResultMap" >
+		select * from prison_terms 
+		where prisoner_id = #{prisonerId,jdbcType=VARCHAR} 
+<!-- 		<choose>
+		   <when test="termFinish!=null">
+		   		and term_finish=DATE_FORMAT(#{termFinish,jdbcType=DATE},'%Y-%m-%d')
+		   </when>
+	   		<otherwise>
+	   			and term_finish is null
+	    	</otherwise>
+    	</choose> -->
+		  <if test="termFinish != null">
+		     and term_finish=DATE_FORMAT(#{termFinish,jdbcType=DATE},'%Y-%m-%d')
+		 </if>
+    	<if test="termFinish == null">
+     		and term_finish is null
+ 		</if>
+	</select>
+	
+</mapper>

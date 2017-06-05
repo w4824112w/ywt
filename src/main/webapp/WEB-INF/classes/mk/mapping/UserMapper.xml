@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mk.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="mk.model.User">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CREATEDATETIME" property="createdatetime" jdbcType="TIMESTAMP" />
+		<result column="MODIFYDATETIME" property="modifydatetime" jdbcType="TIMESTAMP" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PWD" property="pwd" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CREATEDATETIME, MODIFYDATETIME, NAME, PWD, CREATE_TIME, UPDATE_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findList" parameterType="mk.model.User" resultMap="BaseResultMap">
+	    select * from user 
+	    <where>
+	        <if test="name != null and name != ''">and NAME=#{name}</if>
+	    </where>
+	      order by id desc
+	</select>
+	
+	<select id="findPage" parameterType="mk.model.User" resultMap="BaseResultMap">
+	     select * from user 
+	    <where>
+	        <if test="name != null and name != ''">and NAME=#{name}</if>
+	    </where>
+	      order by id desc
+	</select>
+ 
+</mapper>

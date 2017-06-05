@@ -1,0 +1,23 @@
+html{min-height:100%;}
+
+body{
+	  overflow:hidden;
+	  }
+	  	  
+	  
+.remind{  width:633px; height:354px;  margin:0 auto; position:absolute;left: 50%;top: 43%; background-image:url(../images/center1.png);
+         transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);	-webkit-transform:translate(-50%,-50%);-o-transform:translate(-50%,-50%);	
+		 -moz-transform:translate(-50%,-50%);}
+.full{ width:633px; height:354px; margin:0 auto; position:relative;}
+.span1{ position:absolute; left:52%; top:25%; display:block; width:262px; height:38px;}
+.span2{ position:absolute; left:52%; top:40%; display:block; width:262px; height:38px;}
+.span3{ position:absolute; left:52%; top:55%; display:block; width:262px; height:38px;}
+.span4{ position:absolute; left:52%; top:70%; display:block; width:262px; height:38px;}
+.span5{ position:absolute; left:52%; top:82%; text-align:center; color:#fa5a02; display:block; width:262px; height:38px;}
+.span6{ position:absolute; left:75%; top:0; text-align:center; color:#FFF; font-size:16px; display:block; width:262px; height:38px;}
+.inpuser{ width:262px; height:38px;text-align:left; text-indent:3.5em; overflow:hidden; background:url(../images/user.png); }
+.inpword{ width:262px; height:38px; text-align:left; text-indent:3.5em; overflow:hidden; background-image:url(../images/password.png); }
+.inpa{ width:172px; height:38px;text-align:left; text-indent:3.5em; overflow:hidden; background:url(../images/yz.png); }
+.inpa:hover{ opacity:0.8;}
+.BntA{ width:260px; height:35px; background-color:#faf9f7; font-size:16px; cursor:pointer; border-radius:5px; color:#fa5a02; border:2px solid #e9eae7;}
+.BntA:hover{ opacity:0.8;}
