@@ -1,6 +1,7 @@
 package gkyt.controller.api;
 
 import gkyt.model.Sysuser;
+import gkyt.pojo.SysuserDto;
 import gkyt.service.SysuserServiceI;
 
 import java.util.HashMap;
@@ -35,18 +36,18 @@ public class LoginController {
 	 */
     @RequestMapping(value = "/login", method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-    public Map<String,Object> login(HttpServletRequest request, HttpServletResponse response,String loginName,String loginPwd){
+    public Map<String,Object> login(HttpServletRequest request, HttpServletResponse response,SysuserDto dto){
     	log.info("调用登录接口开始......");
     	Map<String,Object> retData=new HashMap<String,Object>();
     	
-		if(StringUtils.isBlank(loginName) || StringUtils.isBlank(loginPwd)){
+		if(StringUtils.isBlank(dto.getLoginName()) || StringUtils.isBlank(dto.getLoginPwd())){
 			retData.put("code", "1");
 			retData.put("msg", "请输入账号或密码");
 			retData.put("data", "");
 			return retData;
 		}
 		
-		Sysuser u = sysuserService.login(loginName, loginPwd);
+		Sysuser u = sysuserService.login(dto);
 		if(u==null){
 			retData.put("code", "1");
 			retData.put("msg", "账号不存在，请确认");
@@ -71,6 +72,7 @@ public class LoginController {
 		
 		retData.put("code", "0");
 		retData.put("msg", "登录成功");
+		retData.put("dto", dto);
 		retData.put("data", u);
 		
 		log.info("调用登录接口结束......");
@@ -83,7 +85,7 @@ public class LoginController {
      * @param response
      * @return
      */
-	@RequestMapping(value = "/logout.do",method = { RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "/logout",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public Map<String,Object> logout(HttpServletRequest request, HttpServletResponse response){
 		log.info("调用退出登录接口开始......");

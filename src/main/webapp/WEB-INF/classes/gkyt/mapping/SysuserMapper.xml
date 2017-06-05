@@ -18,12 +18,33 @@
 		id, real_name,login_name, login_pwd,email,status,jail_id, role_id,is_delete,created_at,updated_at
 	</sql>
 	
-	<select id="login" parameterType="gkyt.model.Sysuser" resultMap="BaseResultMap" >
+	<select id="login" parameterType="gkyt.pojo.SysuserDto" resultMap="BaseResultMap" >
 		select
 		<include refid="Base_Column_List" />
 		from tb_sysuser
 		where login_name = #{loginName,jdbcType=VARCHAR} and login_pwd = #{loginPwd,jdbcType=VARCHAR} 
 	</select>
 	
+	<select id="findPage" parameterType="gkyt.pojo.SysuserDto" resultMap="BaseResultMap">
+	     select 
+	     <include refid="Base_Column_List" />
+	     from tb_sysuser where 1=1
+	     <if test="roleId != null and roleId != ''">
+		     and role_id = #{roleId,jdbcType=VARCHAR} 
+		 </if>
+		<if test="status != null and status != ''">
+		     and status = #{status,jdbcType=VARCHAR} 
+		 </if>
+	   	 <if test="loginName != null and loginName != ''">
+		     and login_name like '%' || #{loginName,jdbcType=VARCHAR} || '%'
+		 </if>
+	   	 <if test="startTime != null and startTime != ''">
+		     and created_at &gt;= #{startTime,jdbcType=VARCHAR} 
+		 </if>
+		 <if test="endTime != null and endTime != ''">
+		     and created_at &lt;= #{endTime,jdbcType=VARCHAR} 
+		 </if>
+	      order by id desc
+	</select>
 	
 </mapper>

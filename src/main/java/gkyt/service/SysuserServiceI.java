@@ -1,6 +1,9 @@
 package gkyt.service;
 
+import gkyt.commons.paginator.domain.PageBounds;
+import gkyt.commons.paginator.domain.PageResult;
 import gkyt.model.Sysuser;
+import gkyt.pojo.SysuserDto;
 
 /**
  * 本地的
@@ -9,5 +12,7 @@ import gkyt.model.Sysuser;
  */
 public interface SysuserServiceI {
 
-	public Sysuser login(String name, String pwd);
+	public Sysuser login(SysuserDto dto);
+	
+	public PageResult<Sysuser> findPage(PageBounds bounds,SysuserDto dto);
 }
