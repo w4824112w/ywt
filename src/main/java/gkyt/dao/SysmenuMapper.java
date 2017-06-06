@@ -17,6 +17,8 @@ public interface SysmenuMapper {
 	
 	List<Sysmenu> getSubmenu(SysmenuDto dto);
 	
+	List<Sysmenu> getOneLevelMenu(SysmenuDto dto);
+	
 	int save(Sysmenu menu);
 	
 	int update(Sysmenu menu);

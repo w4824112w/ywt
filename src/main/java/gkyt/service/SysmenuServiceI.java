@@ -17,11 +17,13 @@ public interface SysmenuServiceI {
 
 	public Sysmenu getById(String id);
 	
-	public Map<String,Object> saveOrUpdate(Sysmenu role);
+	public Map<String,Object> saveOrUpdate(Sysmenu menu);
 	
 	public PageResult<Sysmenu> findPage(PageBounds bounds,SysmenuDto dto);
 	
 	public List<Sysmenu> getAll(SysmenuDto dto);
+	
+	public List<Sysmenu> getOneLevelMenu(SysmenuDto dto);
 	
 	public int delete(String id);
 	

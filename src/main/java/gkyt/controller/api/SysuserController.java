@@ -140,28 +140,11 @@ public class SysuserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			retData.put("code", "1");
-			retData.put("msg", "系统出现异常，新增or修改用户失败");
+			retData.put("msg", "系统出现异常");
 			retData.put("data", "");
 			return retData;
 		}
-
 		
-		//默认密码
-	//	o.setLoginPwd(MD5.MD5Hash("123456"));
-		
-/*			String account = o.getLoginName();
-			if(StringUtils.isBlank(account)){
-				result.put("retcode", 1);
-				result.put("retmsg", "缺少必填参数！");
-				return "admin/sysuser/update";
-			}		
-			
-			if(userDao.checkAccount(account,o.getUserId())){
-				result.put("retcode", 1);
-				result.put("retmsg", "用户名已存在，请更改！");
-				return "admin/sysuser/update";
-			}*/
-			
 	}
 	
 	/**
@@ -198,7 +181,7 @@ public class SysuserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			retData.put("code", "1");
-			retData.put("msg", "系统出现异常,删除用户失败");
+			retData.put("msg", "系统出现异常");
 			return retData;
 		}
 		

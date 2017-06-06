@@ -3,10 +3,10 @@ package gkyt.controller.api;
 import gkyt.commons.paginator.domain.Order;
 import gkyt.commons.paginator.domain.PageBounds;
 import gkyt.commons.paginator.domain.PageResult;
-import gkyt.model.Sysrole;
+import gkyt.model.Sysmenu;
 import gkyt.model.Sysuser;
-import gkyt.pojo.SysroleDto;
-import gkyt.service.SysroleServiceI;
+import gkyt.pojo.SysmenuDto;
+import gkyt.service.SysmenuServiceI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,20 +27,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
- * 系统角色管理
+ * 系统菜单管理
  * @author hk
  *
  */
 @Controller
-@RequestMapping("/api/sysrole")
-public class SysroleController {
-	private static final Logger log = Logger.getLogger(SysroleController.class); 
+@RequestMapping("/api/sysmenu")
+public class SysmenuController {
+	private static final Logger log = Logger.getLogger(SysmenuController.class); 
 	
     @Autowired
-    private SysroleServiceI sysroleService;
+    private SysmenuServiceI sysmenuService;
 	
     /**
-     * 分页查询角色
+     * 分页查询菜单
      * @param request
      * @param response
      * @param page
@@ -51,7 +51,7 @@ public class SysroleController {
 	@RequestMapping(value ="/page",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public Map<String,Object> page(HttpServletRequest request,HttpServletResponse response,
-			Integer page,Integer rows,SysroleDto dto){
+			Integer page,Integer rows,SysmenuDto dto){
     	Map<String,Object> retData=new HashMap<String,Object>();
 		
 		HttpSession session = request.getSession();
@@ -74,7 +74,7 @@ public class SysroleController {
 		listOrder.add(Order.create("created_at", "asc"));
 		PageBounds bounds = new PageBounds(page,rows,listOrder);
 		
-		PageResult<Sysrole> result = sysroleService.findPage(bounds,dto);
+		PageResult<Sysmenu> result = sysmenuService.findPage(bounds,dto);
 		
 		retData.put("code", "0");
 		retData.put("msg", "查询成功");
@@ -88,7 +88,7 @@ public class SysroleController {
 	}	
     
 	/**
-	 * 角色列表
+	 * 一级菜单菜单列表
 	 * @param request
 	 * @param response
 	 * @param page
@@ -96,10 +96,10 @@ public class SysroleController {
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value ="/list",method = { RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value ="/oneLevelList",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public Map<String,Object> list(HttpServletRequest request,HttpServletResponse response,
-			Integer page,Integer rows,SysroleDto dto){
+	public Map<String,Object> oneLevelList(HttpServletRequest request,HttpServletResponse response,
+			Integer page,Integer rows,SysmenuDto dto){
 	   	Map<String,Object> retData=new HashMap<String,Object>();
 		
 		HttpSession session = request.getSession();
@@ -111,7 +111,42 @@ public class SysroleController {
 			return retData;
 		} 
 		
-		List<Sysrole> result = sysroleService.getAll(dto);
+		List<Sysmenu> result = sysmenuService.getOneLevelMenu(dto);
+		
+		retData.put("code", "0");
+		retData.put("msg", "查询成功");
+		retData.put("dto", dto);
+		retData.put("data", result);
+		
+    	return retData;
+	}
+	
+	
+	/**
+	 * 菜单列表
+	 * @param request
+	 * @param response
+	 * @param page
+	 * @param rows
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value ="/list",method = { RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Map<String,Object> list(HttpServletRequest request,HttpServletResponse response,
+			Integer page,Integer rows,SysmenuDto dto){
+	   	Map<String,Object> retData=new HashMap<String,Object>();
+		
+		HttpSession session = request.getSession();
+		Sysuser u = (Sysuser)session.getAttribute("s_user");
+		if(u==null){
+			retData.put("code", "1");
+			retData.put("msg", "用户已超时，请退出登录");
+			retData.put("data", "");
+			return retData;
+		} 
+		
+		List<Sysmenu> result = sysmenuService.getAll(dto);
 		
 		retData.put("code", "0");
 		retData.put("msg", "查询成功");
@@ -122,7 +157,7 @@ public class SysroleController {
 	}
 	
 	/**
-	 * 编辑角色
+	 * 编辑菜单
 	 * @param request
 	 * @param response
 	 * @param id
@@ -142,7 +177,7 @@ public class SysroleController {
 			return retData;
 		}
 		
-		Sysrole role=sysroleService.getById(id);
+		Sysmenu role=sysmenuService.getById(id);
 		retData.put("code", "0");
 		retData.put("msg", "获取编辑对象成功");
 		retData.put("data", role);
@@ -151,14 +186,14 @@ public class SysroleController {
 	}	
 	
 	/**
-	 * 保存角色
+	 * 保存菜单
 	 * @param o
 	 * @param r
 	 * @return
 	 */
 	@RequestMapping(value ="/save",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public Map<String,Object> save(HttpServletRequest request,HttpServletResponse response,Sysrole role){		
+	public Map<String,Object> save(HttpServletRequest request,HttpServletResponse response,Sysmenu role){		
 		Map<String,Object> retData=new HashMap<String,Object>();
 		
 		HttpSession session = request.getSession();
@@ -170,7 +205,7 @@ public class SysroleController {
 			return retData;
 		}
 		try {
-			retData=sysroleService.saveOrUpdate(role);
+			retData=sysmenuService.saveOrUpdate(role);
 			return retData;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -184,7 +219,7 @@ public class SysroleController {
 	}
 	
 	/**
-	 * 删除角色
+	 * 删除菜单
 	 * @param request
 	 * @param response
 	 * @param id
@@ -205,7 +240,7 @@ public class SysroleController {
 		}
 		
 		try {
-			int result=sysroleService.delete(id);
+			int result=sysmenuService.delete(id);
 			if(result>0){
 				retData.put("code", "0");
 				retData.put("msg", "删除用户成功");

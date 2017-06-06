@@ -7,7 +7,6 @@ import gkyt.dao.SysmenuMapper;
 import gkyt.model.Sysmenu;
 import gkyt.pojo.SysmenuDto;
 import gkyt.service.SysmenuServiceI;
-import gkyt.service.SysroleServiceI;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,18 +30,18 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 	private SysmenuMapper sysmenuMapper;
 
 	public PageResult<Sysmenu> findPage(PageBounds bounds,SysmenuDto dto) {
-	    PageList<Sysmenu> roles=sysmenuMapper.findPage(bounds,dto);
-		return new PageResult<Sysmenu>(roles);
+	    PageList<Sysmenu> menus=sysmenuMapper.findPage(bounds,dto);
+		return new PageResult<Sysmenu>(menus);
 	}
 
 	@Transactional
-	public Map<String,Object> saveOrUpdate(Sysmenu role) {
+	public Map<String,Object> saveOrUpdate(Sysmenu menu) {
 		int result;
 		Map<String,Object> retData=new HashMap<String,Object>();
 		
-		if(role.getId()!=null){
-			role.setUpdatedAt(new Date());
-			result = sysmenuMapper.update(role);
+		if(menu.getId()!=null){
+			menu.setUpdatedAt(new Date());
+			result = sysmenuMapper.update(menu);
 			
 			if(result>0){
 				retData.put("code", "0");
@@ -52,8 +51,8 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 				retData.put("msg", "修改用户失败");
 			}
 		}else{
-			role.setCreatedAt(new Date());
-			result = sysmenuMapper.save(role);
+			menu.setCreatedAt(new Date());
+			result = sysmenuMapper.save(menu);
 			
 			if(result>0){
 				retData.put("code", "0");
@@ -68,7 +67,11 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 	}
 
 	public Sysmenu getById(String id) {
-		return sysmenuMapper.getById(id);
+		Sysmenu menu=sysmenuMapper.getById(id);
+		SysmenuDto dto=new SysmenuDto();
+		dto.setId(id);
+		menu.setSubMenus(sysmenuMapper.getSubmenu(dto));
+		return menu;
 	}
 
 	@Transactional
@@ -78,7 +81,17 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 	}
 
 	public List<Sysmenu> getAll(SysmenuDto dto) {
-		return sysmenuMapper.getAll(dto);
+		List<Sysmenu> menus = sysmenuMapper.getAll(dto);
+		for(Sysmenu menu:menus){
+			SysmenuDto obj=new SysmenuDto();
+			obj.setId(menu.getId().toString());
+			menu.setSubMenus(sysmenuMapper.getSubmenu(obj));
+		}
+		return menus;
+	}
+
+	public List<Sysmenu> getOneLevelMenu(SysmenuDto dto) {
+		return sysmenuMapper.getOneLevelMenu(dto);
 	}
 
 

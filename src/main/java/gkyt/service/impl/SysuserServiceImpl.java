@@ -43,6 +43,9 @@ public class SysuserServiceImpl implements SysuserServiceI {
 		int result;
 		Map<String,Object> retData=new HashMap<String,Object>();
 		
+		//默认密码，md5加密
+	//	o.setLoginPwd(MD5.MD5Hash("123456"));
+		
 		if(user.getId()!=null){
 			user.setUpdatedAt(new Date());
 			result = sysuserMapper.update(user);
