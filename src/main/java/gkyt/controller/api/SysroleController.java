@@ -3,9 +3,10 @@ package gkyt.controller.api;
 import gkyt.commons.paginator.domain.Order;
 import gkyt.commons.paginator.domain.PageBounds;
 import gkyt.commons.paginator.domain.PageResult;
+import gkyt.model.Sysrole;
 import gkyt.model.Sysuser;
-import gkyt.pojo.SysuserDto;
-import gkyt.service.SysuserServiceI;
+import gkyt.pojo.SysroleDto;
+import gkyt.service.SysroleServiceI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,20 +27,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
- * 系统用户管理
+ * 系统角色管理
  * @author hk
  *
  */
 @Controller
-@RequestMapping("/api/sysuser")
-public class SysuserController {
-	private static final Logger log = Logger.getLogger(SysuserController.class); 
+@RequestMapping("/api/sysrole")
+public class SysroleController {
+	private static final Logger log = Logger.getLogger(SysroleController.class); 
 	
     @Autowired
-    private SysuserServiceI sysuserService;
+    private SysroleServiceI sysroleService;
 	
     /**
-     * 分页查询用户
+     * 分页查询角色
      * @param request
      * @param response
      * @param page
@@ -50,7 +51,7 @@ public class SysuserController {
 	@RequestMapping(value ="/page",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public Map<String,Object> page(HttpServletRequest request,HttpServletResponse response,
-			Integer page,Integer rows,SysuserDto dto){
+			Integer page,Integer rows,SysroleDto dto){
     	Map<String,Object> retData=new HashMap<String,Object>();
 		
 		HttpSession session = request.getSession();
@@ -73,7 +74,7 @@ public class SysuserController {
 		listOrder.add(Order.create("created_at", "asc"));
 		PageBounds bounds = new PageBounds(page,rows,listOrder);
 		
-		PageResult<Sysuser> result = sysuserService.findPage(bounds,dto);
+		PageResult<Sysrole> result = sysroleService.findPage(bounds,dto);
 		
 		retData.put("code", "0");
 		retData.put("msg", "查询成功");
@@ -87,7 +88,41 @@ public class SysuserController {
 	}	
     
 	/**
-	 * 编辑用户
+	 * 角色列表
+	 * @param request
+	 * @param response
+	 * @param page
+	 * @param rows
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value ="/list",method = { RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Map<String,Object> list(HttpServletRequest request,HttpServletResponse response,
+			Integer page,Integer rows,SysroleDto dto){
+	   	Map<String,Object> retData=new HashMap<String,Object>();
+		
+		HttpSession session = request.getSession();
+		Sysuser u = (Sysuser)session.getAttribute("s_user");
+		if(u==null){
+			retData.put("code", "1");
+			retData.put("msg", "用户已超时，请退出登录");
+			retData.put("data", "");
+			return retData;
+		} 
+		
+		List<Sysrole> result = sysroleService.getAll(dto);
+		
+		retData.put("code", "0");
+		retData.put("msg", "查询成功");
+		retData.put("dto", dto);
+		retData.put("data", result);
+		
+    	return retData;
+	}
+	
+	/**
+	 * 编辑角色
 	 * @param request
 	 * @param response
 	 * @param id
@@ -107,23 +142,23 @@ public class SysuserController {
 			return retData;
 		}
 		
-		Sysuser user=sysuserService.getById(id);
+		Sysrole role=sysroleService.getById(id);
 		retData.put("code", "0");
 		retData.put("msg", "获取编辑对象成功");
-		retData.put("data", user);
+		retData.put("data", role);
 
 		return retData;
 	}	
 	
 	/**
-	 * 保存用户
+	 * 保存角色
 	 * @param o
 	 * @param r
 	 * @return
 	 */
 	@RequestMapping(value ="/save",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public Map<String,Object> save(HttpServletRequest request,HttpServletResponse response,Sysuser user){		
+	public Map<String,Object> save(HttpServletRequest request,HttpServletResponse response,Sysrole role){		
 		Map<String,Object> retData=new HashMap<String,Object>();
 		
 		HttpSession session = request.getSession();
@@ -135,7 +170,7 @@ public class SysuserController {
 			return retData;
 		}
 		try {
-			retData=sysuserService.saveOrUpdate(user);
+			retData=sysroleService.saveOrUpdate(role);
 			return retData;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,27 +180,11 @@ public class SysuserController {
 			return retData;
 		}
 
-		
-		//默认密码
-	//	o.setLoginPwd(MD5.MD5Hash("123456"));
-		
-/*			String account = o.getLoginName();
-			if(StringUtils.isBlank(account)){
-				result.put("retcode", 1);
-				result.put("retmsg", "缺少必填参数！");
-				return "admin/sysuser/update";
-			}		
-			
-			if(userDao.checkAccount(account,o.getUserId())){
-				result.put("retcode", 1);
-				result.put("retmsg", "用户名已存在，请更改！");
-				return "admin/sysuser/update";
-			}*/
 			
 	}
 	
 	/**
-	 * 删除用户
+	 * 删除角色
 	 * @param request
 	 * @param response
 	 * @param id
@@ -186,7 +205,7 @@ public class SysuserController {
 		}
 		
 		try {
-			int result=sysuserService.delete(id);
+			int result=sysroleService.delete(id);
 			if(result>0){
 				retData.put("code", "0");
 				retData.put("msg", "删除用户成功");

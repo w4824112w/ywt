@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 /**
- * 系统用户表
+ * 系统用户dto
  * @author hk
  *
  */

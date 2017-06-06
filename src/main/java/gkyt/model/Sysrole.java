@@ -14,7 +14,7 @@ public class Sysrole implements Serializable{
 	
 	private Integer id;
 	private String roleName;
-	private String desc;
+	private String description;
 	private Date createdAt;
 	private Date updatedAt;
 	private List<Rolemenu> menus;
@@ -31,11 +31,11 @@ public class Sysrole implements Serializable{
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -55,7 +55,6 @@ public class Sysrole implements Serializable{
 	public void setMenus(List<Rolemenu> menus) {
 		this.menus = menus;
 	}
-	
 	
 	
 }
