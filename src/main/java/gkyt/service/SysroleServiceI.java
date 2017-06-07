@@ -25,4 +25,6 @@ public interface SysroleServiceI {
 	
 	public int delete(String id);
 	
+	public boolean saveRoleMenu(String[] menuIds,String roleId);
+	
 }

@@ -80,5 +80,20 @@ public class SysroleServiceImpl implements SysroleServiceI {
 		return sysroleMapper.getAll(dto);
 	}
 
+	@Transactional
+	public boolean saveRoleMenu(String[] menuIds, String roleId) {
+		sysroleMapper.deleteRoleMenu(roleId);
+		int ret=0;
+		for(String menuId:menuIds){
+			int count=sysroleMapper.addRoleMenu(menuId, roleId);
+			ret=ret+count;
+		}
+		if(ret==menuIds.length){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 }

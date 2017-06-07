@@ -23,4 +23,6 @@ public interface SysroleMapper {
 	
 	void deleteRoleMenu(String roleId);
 	
+	int addRoleMenu(String menuId,String roleId);
+	
 }
