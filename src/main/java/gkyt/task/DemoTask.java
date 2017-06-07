@@ -1,19 +1,13 @@
 package gkyt.task;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
-import gkyt.controller.api.SysmenuController;
-
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 
-@Component
+//@Component
 public class DemoTask {
-	/*private static final Logger log = Logger.getLogger(DemoTask.class);*/
+	private static final Logger log = Logger.getLogger(DemoTask.class);
 	
 /*	@Autowired
 	private TbVisitorResidentRecordMapper visitorResidentRecordMapper;
@@ -43,9 +37,9 @@ public class DemoTask {
 	/**
 	 * 基础数据接口定时访问(每间隔10秒拉取一次)
 	 */
-	@Scheduled(fixedDelay = 5000)
+/*	@Scheduled(fixedDelay = 5000)
 	public void test() {
 		System.out.println("10定时跑批......");
-	}
+	}*/
 	
 }
