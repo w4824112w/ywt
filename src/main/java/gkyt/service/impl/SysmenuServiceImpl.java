@@ -80,18 +80,22 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 		return sysmenuMapper.delete(id);
 	}
 
-	public List<Sysmenu> getAll(SysmenuDto dto) {
-		List<Sysmenu> menus = sysmenuMapper.getAll(dto);
+	public List<Sysmenu> getAll() {
+		List<Sysmenu> menus = sysmenuMapper.getAll();
 		for(Sysmenu menu:menus){
-			SysmenuDto obj=new SysmenuDto();
-			obj.setId(menu.getId().toString());
-			menu.setSubMenus(sysmenuMapper.getSubmenu(obj));
+			SysmenuDto dto=new SysmenuDto();
+			dto.setId(menu.getId().toString());
+			menu.setSubMenus(sysmenuMapper.getSubmenu(dto));
 		}
 		return menus;
 	}
 
 	public List<Sysmenu> getOneLevelMenu(SysmenuDto dto) {
 		return sysmenuMapper.getOneLevelMenu(dto);
+	}
+
+	public List<Sysmenu> getByRoleId(String roleId) {
+		return sysmenuMapper.getByRoleId(roleId);
 	}
 
 

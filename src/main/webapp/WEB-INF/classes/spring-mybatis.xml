@@ -20,6 +20,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
         </property>  
     </bean>
     
+    
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 数据库基本信息配置 -->
@@ -134,6 +135,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
         Spring 2.0 可以用 AspectJ 的语法定义 Pointcut，这里自定义要拦截方法的包所在  
         <aop:advisor id="methodTimeLog" advice-ref="methodTimeAdvice" pointcut="execution(* gkyt.service..*Impl.*(..))" />
     </aop:config> -->
+    
     
     
     <!-- corePoolSize： 线程池维护线程的最少数量 keepAliveSeconds 线程池维护线程所允许的空闲时间 maxPoolSize 

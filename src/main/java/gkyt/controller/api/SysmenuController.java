@@ -146,7 +146,7 @@ public class SysmenuController {
 			return retData;
 		} 
 		
-		List<Sysmenu> result = sysmenuService.getAll(dto);
+		List<Sysmenu> result = sysmenuService.getAll();
 		
 		retData.put("code", "0");
 		retData.put("msg", "查询成功");

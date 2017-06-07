@@ -22,7 +22,7 @@
 		where id = #{id,jdbcType=VARCHAR} 
 	</select>
 	
-	<select id="getAll" parameterType="gkyt.pojo.SysmenuDto" resultMap="BaseResultMap">
+	<select id="getAll" resultMap="BaseResultMap">
 	     select 
 	     <include refid="Base_Column_List" />
 	     from tb_sysmenu order by id desc
@@ -39,6 +39,12 @@
 	     <include refid="Base_Column_List" />
 	     from tb_sysmenu where menu_type=1
 	     order by menu_order asc
+	</select>
+	
+	<select id="getByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+	     select m.* from tb_sysmenu m,tb_rolemenu rm 
+	     where m.id=rm.menu_id where rm.role_id= #{roleId,jdbcType=VARCHAR}
+	     order by m.menu_order asc
 	</select>
 	
 	<select id="findPage" parameterType="gkyt.pojo.SysmenuDto" resultMap="BaseResultMap">

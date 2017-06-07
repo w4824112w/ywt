@@ -3,9 +3,11 @@ package gkyt.controller.api;
 import gkyt.commons.paginator.domain.Order;
 import gkyt.commons.paginator.domain.PageBounds;
 import gkyt.commons.paginator.domain.PageResult;
+import gkyt.model.Sysmenu;
 import gkyt.model.Sysrole;
 import gkyt.model.Sysuser;
 import gkyt.pojo.SysroleDto;
+import gkyt.service.SysmenuServiceI;
 import gkyt.service.SysroleServiceI;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
 /**
  * 系统角色管理
  * @author hk
@@ -38,6 +41,9 @@ public class SysroleController {
 	
     @Autowired
     private SysroleServiceI sysroleService;
+    
+    @Autowired
+    private SysmenuServiceI sysmenuService;
 	
     /**
      * 分页查询角色
@@ -148,6 +154,107 @@ public class SysroleController {
 		retData.put("data", role);
 
 		return retData;
+	}	
+	
+	/**
+	 * 角色权限编辑
+	 * @param request
+	 * @param response
+	 * @param roleId
+	 * @return
+	 */
+	@RequestMapping(value="/menuSetup",method = { RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Map<String,Object> menuSetup(HttpServletRequest request,HttpServletResponse response,String roleId){	
+	   	Map<String,Object> retData=new HashMap<String,Object>();
+	   	
+		HttpSession session = request.getSession();
+		Sysuser u = (Sysuser)session.getAttribute("s_user");
+		if(u==null){
+			retData.put("code", "1");
+			retData.put("msg", "用户已超时，请退出登录");
+			retData.put("data", "");
+			return retData;
+		}
+		
+		//获取系统所有菜单权限
+		List<Sysmenu> allList = sysmenuService.getAll();
+		//获取用户已分配的菜单权限
+		List<Sysmenu> ownList = sysmenuService.getByRoleId(roleId);
+		
+		retData.put("code", "0");
+		retData.put("msg", "获取菜单信息列表成功");
+		retData.put("allList", allList);
+		retData.put("ownList", ownList);
+		retData.put("roleId", roleId);
+		
+		return retData;
+	}
+	
+	/**
+	 * 保存角色权限
+	 * @param menuIds
+	 * @param roleId
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/saveRoleMenuSetup",method = { RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Map<String,Object> saveRoleMenuSetup(String[] menuIds,String roleId,HttpServletRequest request,HttpServletResponse response){		
+	   	Map<String,Object> retData=new HashMap<String,Object>();
+	   	
+		HttpSession session = request.getSession();
+		Sysuser u = (Sysuser)session.getAttribute("s_user");
+		if(u==null){
+			retData.put("code", "1");
+			retData.put("msg", "用户已超时，请退出登录");
+			retData.put("data", "");
+			return retData;
+		}
+		
+		retData.put("code", "0");
+		retData.put("msg", "保存角色权限成功");
+		retData.put("data", "");
+		return retData;
+		
+/*		if(userlimits==null || userlimits.length<1){
+			return "redirect:/admin/roles/menuSetup.do?roleId="+roleId;	
+		}
+		
+		//获取用户已分配的菜单权限
+		List<Sysmenu> umlist =  menuDao.getByRoleId(roleId);
+		
+		//新增的菜单ID
+		Set<Integer> addLimitSet = null;
+		addLimitSet = new HashSet<Integer>();
+		for(int i=0,len=userlimits.length;i<len;i++){
+			addLimitSet.add(userlimits[i]);
+		}
+		
+		for(int i=0,len=umlist.size();i<len;i++){
+			Integer old = umlist.get(i).getId();
+			if(addLimitSet.contains(old)){
+				addLimitSet.remove(old);
+			}
+		}
+		
+		userlimits = new Integer[addLimitSet.size()];
+		int index = 0;
+		for(Integer i : addLimitSet){
+			userlimits[index]=i;
+			index++;
+		}
+	
+		if(roleDao.saveRoleMenus(roleId,userlimits)){		
+			syslogsDao.saveOrUpdate(u.getLoginName(),
+					SyslogOptype.op_update.getOptype(),
+					"更新角色的权限信息");
+			return "redirect:/admin/roles/menuSetup.do?roleId="+roleId;	
+		}else{
+			r.setAttribute("msg", "分配权限失败！");
+			return "admin/error";
+		}		*/		
 	}	
 	
 	/**

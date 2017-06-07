@@ -13,11 +13,13 @@ public interface SysmenuMapper {
 	
 	PageList<Sysmenu> findPage(PageBounds bounds,SysmenuDto dto);
 	
-	List<Sysmenu> getAll(SysmenuDto dto);
+	List<Sysmenu> getAll();
 	
 	List<Sysmenu> getSubmenu(SysmenuDto dto);
 	
 	List<Sysmenu> getOneLevelMenu(SysmenuDto dto);
+	
+	List<Sysmenu> getByRoleId(String roleId);
 	
 	int save(Sysmenu menu);
 	

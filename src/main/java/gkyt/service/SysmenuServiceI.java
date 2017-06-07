@@ -21,9 +21,11 @@ public interface SysmenuServiceI {
 	
 	public PageResult<Sysmenu> findPage(PageBounds bounds,SysmenuDto dto);
 	
-	public List<Sysmenu> getAll(SysmenuDto dto);
+	public List<Sysmenu> getAll();
 	
 	public List<Sysmenu> getOneLevelMenu(SysmenuDto dto);
+	
+	public List<Sysmenu> getByRoleId(String roleId);
 	
 	public int delete(String id);
 	
