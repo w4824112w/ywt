@@ -88,15 +88,21 @@ public class LoginController {
 	@RequestMapping(value = "/logout",method = { RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public Map<String,Object> logout(HttpServletRequest request, HttpServletResponse response){
+    	Map<String,Object> retData=new HashMap<String,Object>();
+    	
 		log.info("调用退出登录接口开始......");
 		HttpSession session = request.getSession();
 		Sysuser u  = (Sysuser)session.getAttribute("s_user");
-		session.removeAttribute("s_user");		
-		log.info(u.getLoginName()+"退出了系统");
+		if(u!=null){
+			session.removeAttribute("s_user");		
+			log.info(u.getLoginName()+"退出了系统");
+			retData.put("msg", u.getLoginName()+"退出了系统");
+		}else{
+			log.info("退出了系统");
+			retData.put("msg", "退出了系统");
+		}
 		
-    	Map<String,Object> retData=new HashMap<String,Object>();
 		retData.put("code", "0");
-		retData.put("msg", u.getLoginName()+"退出了系统");
 		retData.put("data", "");
 		
 		log.info("调用退出登录接口结束......");
