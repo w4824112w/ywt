@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+/**
+ * 用户登录
+ * @author hk
+ *
+ */
 @Controller
 @RequestMapping("/api")
 public class LoginController {

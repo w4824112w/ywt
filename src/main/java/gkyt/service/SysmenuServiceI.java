@@ -23,7 +23,7 @@ public interface SysmenuServiceI {
 	
 	public List<Sysmenu> getAll();
 	
-	public List<Sysmenu> getOneLevelMenu(SysmenuDto dto);
+	public List<Sysmenu> getOneLevelMenu();
 	
 	public List<Sysmenu> getByRoleId(String roleId);
 	

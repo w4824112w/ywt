@@ -45,10 +45,10 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 			
 			if(result>0){
 				retData.put("code", "0");
-				retData.put("msg", "修改用户成功");
+				retData.put("msg", "修改菜单成功");
 			}else{
 				retData.put("code", "1");
-				retData.put("msg", "修改用户失败");
+				retData.put("msg", "修改菜单失败");
 			}
 		}else{
 			menu.setCreatedAt(new Date());
@@ -56,10 +56,10 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 			
 			if(result>0){
 				retData.put("code", "0");
-				retData.put("msg", "新增用户成功");
+				retData.put("msg", "新增菜单成功");
 			}else{
 				retData.put("code", "1");
-				retData.put("msg", "新增用户失败");
+				retData.put("msg", "新增菜单失败");
 			}
 		}
 		
@@ -90,8 +90,8 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 		return menus;
 	}
 
-	public List<Sysmenu> getOneLevelMenu(SysmenuDto dto) {
-		return sysmenuMapper.getOneLevelMenu(dto);
+	public List<Sysmenu> getOneLevelMenu() {
+		return sysmenuMapper.getOneLevelMenu();
 	}
 
 	public List<Sysmenu> getByRoleId(String roleId) {

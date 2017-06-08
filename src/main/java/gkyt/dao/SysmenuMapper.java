@@ -17,7 +17,7 @@ public interface SysmenuMapper {
 	
 	List<Sysmenu> getSubmenu(SysmenuDto dto);
 	
-	List<Sysmenu> getOneLevelMenu(SysmenuDto dto);
+	List<Sysmenu> getOneLevelMenu();
 	
 	List<Sysmenu> getByRoleId(String roleId);
 	

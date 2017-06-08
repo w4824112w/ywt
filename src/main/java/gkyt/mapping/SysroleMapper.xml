@@ -49,7 +49,7 @@
 	    delete from tb_rolemenu where role_id = #{roleId,jdbcType=VARCHAR} 
   	</delete>
   	
-  	<insert id="addRoleMenu" parameterType="java.lang.String">
+  	<insert id="addRoleMenu" parameterType="java.util.Map">
   		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 	      SELECT LAST_INSERT_ID()
 	    </selectKey>

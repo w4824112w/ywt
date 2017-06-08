@@ -121,11 +121,10 @@ public class SysroleController {
 			return retData;
 		}
 
-		List<Sysrole> result = sysroleService.getAll(dto);
+		List<Sysrole> result = sysroleService.getAll();
 
 		retData.put("code", "0");
 		retData.put("msg", "查询成功");
-		retData.put("dto", dto);
 		retData.put("data", result);
 
 		return retData;
@@ -220,26 +219,22 @@ public class SysroleController {
 		if(u==null){
 			retData.put("code", "1");
 			retData.put("msg", "用户已超时，请退出登录");
-			retData.put("data", "");
 			return retData;
 		}
 		
 		if(menuIds==null || menuIds.length<1){
 			retData.put("code", "1");
 			retData.put("msg", "未选择添加的菜单项");
-			retData.put("data", "");
 			return retData;
 		}
 		
 		if(sysroleService.saveRoleMenu(menuIds, roleId)){
 			retData.put("code", "0");
 			retData.put("msg", "保存角色权限成功");
-			retData.put("data", "");
 			return retData;
 		}else{
 			retData.put("code", "1");
 			retData.put("msg", "保存角色权限失败");
-			retData.put("data", "");
 			return retData;
 		}
 
@@ -265,7 +260,6 @@ public class SysroleController {
 		if (u == null) {
 			retData.put("code", "1");
 			retData.put("msg", "用户已超时，请退出登录");
-			retData.put("data", "");
 			return retData;
 		}
 		try {
@@ -275,7 +269,6 @@ public class SysroleController {
 			e.printStackTrace();
 			retData.put("code", "1");
 			retData.put("msg", "系统出现异常");
-			retData.put("data", "");
 			return retData;
 		}
 
@@ -301,7 +294,6 @@ public class SysroleController {
 		if (u == null) {
 			retData.put("code", "1");
 			retData.put("msg", "用户已超时，请退出登录");
-			retData.put("data", "");
 			return retData;
 		}
 
@@ -309,10 +301,10 @@ public class SysroleController {
 			int result = sysroleService.delete(id);
 			if (result > 0) {
 				retData.put("code", "0");
-				retData.put("msg", "删除用户成功");
+				retData.put("msg", "删除角色成功");
 			} else {
 				retData.put("code", "1");
-				retData.put("msg", "删除用户失败");
+				retData.put("msg", "删除角色失败");
 			}
 			return retData;
 		} catch (Exception e) {

@@ -26,7 +26,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+/**
+ * 统计报表管理
+ * @author hk
+ *
+ */
 @Controller
 @RequestMapping("/api/report")
 public class ReportController {

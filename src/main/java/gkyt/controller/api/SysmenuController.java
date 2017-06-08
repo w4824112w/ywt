@@ -111,7 +111,7 @@ public class SysmenuController {
 			return retData;
 		} 
 		
-		List<Sysmenu> result = sysmenuService.getOneLevelMenu(dto);
+		List<Sysmenu> result = sysmenuService.getOneLevelMenu();
 		
 		retData.put("code", "0");
 		retData.put("msg", "查询成功");
@@ -150,7 +150,6 @@ public class SysmenuController {
 		
 		retData.put("code", "0");
 		retData.put("msg", "查询成功");
-		retData.put("dto", dto);
 		retData.put("data", result);
 		
     	return retData;
@@ -243,10 +242,10 @@ public class SysmenuController {
 			int result=sysmenuService.delete(id);
 			if(result>0){
 				retData.put("code", "0");
-				retData.put("msg", "删除用户成功");
+				retData.put("msg", "删除菜单成功");
 			}else{
 				retData.put("code", "1");
-				retData.put("msg", "删除用户失败");
+				retData.put("msg", "删除菜单失败");
 			}
 			return retData;
 		} catch (Exception e) {

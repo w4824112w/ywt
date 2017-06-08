@@ -14,7 +14,7 @@ public class SysroleDto implements Serializable{
 	
 	private String id;
 	private String roleName;
-	private String desc;
+	private String description;
 	private String startTime;
 	private String endTime;
 	
@@ -30,11 +30,11 @@ public class SysroleDto implements Serializable{
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public String getStartTime() {
 		return startTime;
@@ -49,7 +49,6 @@ public class SysroleDto implements Serializable{
 		this.endTime = endTime;
 	}
 	
-
 
 
 }
