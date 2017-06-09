@@ -1,5 +1,6 @@
 package gkyt.controller.api;
 
+import gkyt.commons.utils.RandomSequence;
 import gkyt.model.Sysuser;
 import gkyt.pojo.SysuserDto;
 import gkyt.service.SysuserServiceI;
@@ -112,4 +113,37 @@ public class LoginController {
 		log.info("调用退出登录接口结束......");
     	return retData;
 	}
+	
+	/**
+	 * 重置密码
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+    @RequestMapping(value = "/resetPwd", method = { RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+    public Map<String,Object> resetPwd(HttpServletRequest request, HttpServletResponse response,SysuserDto dto){
+		Map<String,Object> retData=new HashMap<String,Object>();
+		
+		HttpSession session = request.getSession();
+		Sysuser u = (Sysuser)session.getAttribute("s_user");
+		if(u==null){
+			retData.put("code", "1");
+			retData.put("msg", "用户已超时，请退出登录");
+			return retData;
+		}
+		
+		Sysuser user=sysuserService.getById(dto.getId());
+		String newPwd=RandomSequence.getRandomVal();
+		user.setLoginPwd(newPwd);
+		sysuserService.saveOrUpdate(user);
+		
+		 //发送邮件
+		//调用发送邮件接口给系统用户发送邮件,重置后的密码newPwd
+		
+		retData.put("code", "0");
+		retData.put("msg", "重置用户密码成功");
+		
+    	return retData;
+    }
 }

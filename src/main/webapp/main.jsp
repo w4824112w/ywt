@@ -78,9 +78,28 @@
  
 <script type="text/javascript">
 	
- 	function toExport(){
+ 	function toExport_bak(){
 		var p = $("#exportForm").serialize();
 		window.location.href="${ctx }/prison/export.do?"+p;
+	} 
+ 	
+ 	function toExport(){
+	//	showPopWin(0,"正在处理，请稍候...");
+		$.ajax({
+            type: "POST",
+            url:'${ctx }/prison/export.do',
+            data:$('#exportForm').serialize(),// 你的formid
+            async: false,
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(data) {
+            	var path=data.filepath;
+            	window.location.href="${ctx }/prison/downFiles.do?path="+path;
+            }
+        });
+		
+		
 	} 
  	
  	function toImport_bak(){

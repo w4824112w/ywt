@@ -234,6 +234,43 @@ public class PrisonController {
 		}
 
 	}
+	
+	/**
+	 * 下载excel文件
+	 * @param path
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value="/downFiles.do")
+	public void downFiles(String path,HttpServletRequest request,HttpServletResponse response){
+		 
+		try{	
+			String codedFileName = java.net.URLEncoder
+					.encode("位置短信下发记录_"+DateSupport.getTimestamps()+".xlsx", "UTF-8");
+			
+			String savePath =request.getSession().getServletContext().getRealPath(path);
+			
+			File file = new File(savePath);
+					
+			 // 以流的形式下载文件。
+	        InputStream fis = new BufferedInputStream(new FileInputStream(savePath));
+	        byte[] buffer = new byte[fis.available()];
+	        fis.read(buffer);
+	        fis.close();
+	        
+	        // 设置response的Header
+	        response.addHeader("Content-Disposition", "attachment;filename=" + codedFileName);
+	        response.addHeader("Content-Length", "" + file.length());
+	        response.setContentType("application/msexcel;charset=UTF-8");
+	        OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+	      
+	        toClient.write(buffer);
+	        toClient.flush();
+	        toClient.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 将xml文件数据插入狱务通表
