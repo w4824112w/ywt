@@ -45,10 +45,10 @@ public class SysroleServiceImpl implements SysroleServiceI {
 			
 			if(result>0){
 				retData.put("code", "0");
-				retData.put("msg", "修改用户成功");
+				retData.put("msg", "修改角色成功");
 			}else{
 				retData.put("code", "1");
-				retData.put("msg", "修改用户失败");
+				retData.put("msg", "修改角色失败");
 			}
 		}else{
 			role.setCreatedAt(new Date());
@@ -56,10 +56,10 @@ public class SysroleServiceImpl implements SysroleServiceI {
 			
 			if(result>0){
 				retData.put("code", "0");
-				retData.put("msg", "新增用户成功");
+				retData.put("msg", "新增角色成功");
 			}else{
 				retData.put("code", "1");
-				retData.put("msg", "新增用户失败");
+				retData.put("msg", "新增角色失败");
 			}
 		}
 		
@@ -76,8 +76,8 @@ public class SysroleServiceImpl implements SysroleServiceI {
 		return sysroleMapper.delete(id);
 	}
 
-	public List<Sysrole> getAll(SysroleDto dto) {
-		return sysroleMapper.getAll(dto);
+	public List<Sysrole> getAll() {
+		return sysroleMapper.getAll();
 	}
 
 	@Transactional
@@ -85,7 +85,10 @@ public class SysroleServiceImpl implements SysroleServiceI {
 		sysroleMapper.deleteRoleMenu(roleId);
 		int ret=0;
 		for(String menuId:menuIds){
-			int count=sysroleMapper.addRoleMenu(menuId, roleId);
+			Map<String,Object> obj=new HashMap<String,Object>();
+			obj.put("menuId", menuId);
+			obj.put("roleId", roleId);
+			int count=sysroleMapper.addRoleMenu(obj);
 			ret=ret+count;
 		}
 		if(ret==menuIds.length){

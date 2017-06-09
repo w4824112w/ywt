@@ -131,7 +131,6 @@ public class SysuserController {
 		if(u==null){
 			retData.put("code", "1");
 			retData.put("msg", "用户已超时，请退出登录");
-			retData.put("data", "");
 			return retData;
 		}
 		try {
@@ -141,7 +140,6 @@ public class SysuserController {
 			e.printStackTrace();
 			retData.put("code", "1");
 			retData.put("msg", "系统出现异常");
-			retData.put("data", "");
 			return retData;
 		}
 		
@@ -164,7 +162,6 @@ public class SysuserController {
 		if(u==null){
 			retData.put("code", "1");
 			retData.put("msg", "用户已超时，请退出登录");
-			retData.put("data", "");
 			return retData;
 		}
 		

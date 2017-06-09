@@ -7,6 +7,7 @@ import java.util.Map;
 import gkyt.commons.paginator.domain.PageBounds;
 import gkyt.commons.paginator.domain.PageList;
 import gkyt.commons.paginator.domain.PageResult;
+import gkyt.commons.utils.MD5Util;
 import gkyt.dao.SysuserMapper;
 import gkyt.model.Sysuser;
 import gkyt.pojo.SysuserDto;
@@ -29,6 +30,7 @@ public class SysuserServiceImpl implements SysuserServiceI {
 	private SysuserMapper sysuserMapper;
 
 	public Sysuser login(SysuserDto dto) {
+		dto.setLoginPwd(MD5Util.MD5(dto.getLoginPwd()));
 		Sysuser u = sysuserMapper.login(dto);
 		return u;
 	}
@@ -44,7 +46,7 @@ public class SysuserServiceImpl implements SysuserServiceI {
 		Map<String,Object> retData=new HashMap<String,Object>();
 		
 		//默认密码，md5加密
-	//	o.setLoginPwd(MD5.MD5Hash("123456"));
+		user.setLoginPwd(MD5Util.MD5(user.getLoginPwd()));
 		
 		if(user.getId()!=null){
 			user.setUpdatedAt(new Date());

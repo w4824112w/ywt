@@ -1,6 +1,7 @@
 package gkyt.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import gkyt.commons.paginator.domain.PageBounds;
 import gkyt.commons.paginator.domain.PageList;
@@ -13,7 +14,7 @@ public interface SysroleMapper {
 	
 	PageList<Sysrole> findPage(PageBounds bounds,SysroleDto dto);
 	
-	List<Sysrole> getAll(SysroleDto dto);
+	List<Sysrole> getAll();
 	
 	int save(Sysrole role);
 	
@@ -23,6 +24,6 @@ public interface SysroleMapper {
 	
 	void deleteRoleMenu(String roleId);
 	
-	int addRoleMenu(String menuId,String roleId);
+	int addRoleMenu(Map<String,Object> map);
 	
 }

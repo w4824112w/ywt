@@ -21,7 +21,7 @@ public interface SysroleServiceI {
 	
 	public PageResult<Sysrole> findPage(PageBounds bounds,SysroleDto dto);
 	
-	public List<Sysrole> getAll(SysroleDto dto);
+	public List<Sysrole> getAll();
 	
 	public int delete(String id);
 	
