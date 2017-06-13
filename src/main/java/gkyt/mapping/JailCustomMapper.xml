@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gkyt.dao.JailCustomMapper">
+    <!--根据筛选条件查询监狱列表信息-->
+    <select id="getJails" parameterType="java.util.Map" resultType="java.util.Map">
+        select j.id AS id,j.title as title,j.description as description,j.street as street, j.state as state, j.city as city,
+        j.district as district from jails j WHERE 1=1
+        <if test="title !=null and title != 0">
+            AND j.title = #{title, jdbcType=VARCHAR }
+        </if>
+        GROUP BY j.id
+        limit #{startIndex,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+</mapper>
