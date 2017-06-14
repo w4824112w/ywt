@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 public enum ErrorEnums {
     SUCCESS(0, "成功"),
     SERVER_ERROR(-1, "服务器异常"),
-    LOGIN_OVERTIME(1, "登陆超时"),
+    LOGIN_OVERTIME(2, "登陆超时"),
     PARAM_ERROR(99999, "参数错误");
 
     private int code;
