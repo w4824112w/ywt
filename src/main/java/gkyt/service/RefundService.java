@@ -1,9 +1,8 @@
 package gkyt.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import gkyt.dao.FamilyCustomMapper;
-import gkyt.dao.FamilyMapper;
-import gkyt.model.Family;
+import gkyt.dao.DrawBackCustomMapper;
+import gkyt.model.Drawback;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
@@ -11,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by lyt38 on 2017/6/9.
+ * Created by lyt38 on 2017/6/12.
  */
 @Service
-public class FamilyService {
+public class RefundService {
     @Autowired
-    private FamilyCustomMapper familyCustomMapper;
-
-    public List<Family> getFamilies(Integer jailId, String prisonerName, String phone, String name, int indexPage, int pageSize) {
+    private DrawBackCustomMapper drawBackCustomMapper;
+    
+    public List<Drawback> getDrawbacks(Integer jailId, String prisonerName, String phone, String name, int indexPage, int pageSize) {
         Integer startIndex = (indexPage - 1) * pageSize;
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("jailId", jailId);
@@ -27,10 +26,10 @@ public class FamilyService {
         params.put("name", name);
         params.put("startIndex", startIndex);
         params.put("pageSize", pageSize);
-        return familyCustomMapper.getFamilies(params);
+        return drawBackCustomMapper.getDrawbacks(params);
     }
 
-    public int countFamilies(Integer jailId, String prisonerName, String phone, String name, int indexPage, int pageSize) {
+    public int countDrawbacks(Integer jailId, String prisonerName, String phone, String name, int indexPage, int pageSize) {
         Integer startIndex = (indexPage - 1) * pageSize;
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("jailId", jailId);
@@ -39,6 +38,6 @@ public class FamilyService {
         params.put("name", name);
         params.put("startIndex", startIndex);
         params.put("pageSize", pageSize);
-        return familyCustomMapper.countFamilies(params);
+        return drawBackCustomMapper.countDrawbacks(params);
     }
 }

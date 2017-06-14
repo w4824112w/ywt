@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gkyt.dao.DrawBackCustomMapper">
+    <!--根据筛选条件查询退款列表信息-->
+    <select id="getDrawbacks" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT d.id AS id,f.name as name,f.phone as phone,j.title as title, p.name as prisonerName,p.prisoner_number as prisonerNumber, f.relationship as relationship, f.balance as balance, d.created_at as created_at, d.updated_at AS updated_at
+        FROM drawbacks d
+        LEFT JOIN families f ON d.family_id = f.id
+        LEFT JOIN prisoners p ON p.id = f.prisoner_id LEFT JOIN jails j on p.jail_id = j.id WHERE 1=1
+        <if test="title !=null and title != ''">
+            AND j.title = #{title, jdbcType=VARCHAR }
+        </if>
+        <if test="prisonerName !=null and prisonerName != ''">
+            AND p.name = #{prisonerName, jdbcType=VARCHAR }
+        </if>
+        <if test="prisonerNumber !=null and prisonerNumber != ''">
+            AND p.prisoner_number = #{prisonerNumber, jdbcType=VARCHAR }
+        </if>
+        <if test="phone !=null and phone != ''">
+            AND f.phone = #{phone, jdbcType=VARCHAR }
+        </if>
+        GROUP BY d.id
+        limit #{startIndex,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+    <!--根据筛选条件统计退款列表信息-->
+    <select id="countDrawbacks" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(*) FROM drawbacks d LEFT JOIN families f ON d.family_id = f.id
+        LEFT JOIN prisoners p ON p.id = f.prisoner_id LEFT JOIN jails j on p.jail_id = j.id WHERE 1=1
+        <if test="title !=null and title != ''">
+            AND j.title = #{title, jdbcType=VARCHAR }
+        </if>
+        <if test="prisonerName !=null and prisonerName != ''">
+            AND p.name = #{prisonerName, jdbcType=VARCHAR }
+        </if>
+        <if test="prisonerNumber !=null and prisonerNumber != ''">
+            AND p.prisoner_number = #{prisonerNumber, jdbcType=VARCHAR }
+        </if>
+        <if test="phone !=null and phone != ''">
+            AND f.phone = #{phone, jdbcType=VARCHAR }
+        </if>
+
+
+    </select>
+</mapper>

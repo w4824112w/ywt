@@ -5,10 +5,18 @@
     <select id="getJails" parameterType="java.util.Map" resultType="java.util.Map">
         select j.id AS id,j.title as title,j.description as description,j.street as street, j.state as state, j.city as city,
         j.district as district from jails j WHERE 1=1
-        <if test="title !=null and title != 0">
+        <if test="title !=null and title != ''">
             AND j.title = #{title, jdbcType=VARCHAR }
         </if>
         GROUP BY j.id
         limit #{startIndex,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </select>
+    <!--根据筛选条统计监狱列表信息-->
+    <select id="countJails" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from jails j WHERE 1=1
+        <if test="title !=null and title != ''">
+            AND j.title = #{title, jdbcType=VARCHAR }
+        </if>
+
     </select>
 </mapper>
