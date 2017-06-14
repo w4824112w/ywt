@@ -1,10 +1,7 @@
 package gkyt.service.impl;
 
-import gkyt.dao.ExportLogMapper;
 import gkyt.dao.PrisonersMapper;
-import gkyt.model.ExportLog;
 import gkyt.model.Prisoners;
-import gkyt.service.ExportLogServiceI;
 import gkyt.service.PrisonersServiceI;
 
 import org.springframework.beans.factory.annotation.Autowired;
