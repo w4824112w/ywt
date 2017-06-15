@@ -25,25 +25,27 @@ public class RefundService {
     @Autowired
     private DrawbackLogMapper drawbackLogMapper;
 
-    public List<Drawback> getDrawbacks(Integer jailId, String prisonerName, String phone, String name, int indexPage, int pageSize) {
+    public List<Drawback> getDrawbacks(Integer jailId, String prisonerName, String phone, String name, int status, int indexPage, int pageSize) {
         Integer startIndex = (indexPage - 1) * pageSize;
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("jailId", jailId);
         params.put("prisonerName", prisonerName);
         params.put("phone", phone);
         params.put("name", name);
+        params.put("status", status);
         params.put("startIndex", startIndex);
         params.put("pageSize", pageSize);
         return drawBackCustomMapper.getDrawbacks(params);
     }
 
-    public int countDrawbacks(Integer jailId, String prisonerName, String phone, String name, int indexPage, int pageSize) {
+    public int countDrawbacks(Integer jailId, String prisonerName, String phone, String name, int status, int indexPage, int pageSize) {
         Integer startIndex = (indexPage - 1) * pageSize;
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("jailId", jailId);
         params.put("prisonerName", prisonerName);
         params.put("phone", phone);
         params.put("name", name);
+        params.put("status", status);
         params.put("startIndex", startIndex);
         params.put("pageSize", pageSize);
         return drawBackCustomMapper.countDrawbacks(params);
