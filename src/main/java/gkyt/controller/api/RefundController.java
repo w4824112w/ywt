@@ -7,6 +7,7 @@ import gkyt.service.RefundService;
 import gkyt.utils.ErrorEnums;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +21,10 @@ import java.util.List;
 /**
  * Created by lyt38 on 2017/6/12.
  */
+@Controller
+@RequestMapping("/refund")
 public class RefundController {
-    private static final Logger log = Logger.getLogger(FamilyController.class);
+    private static final Logger log = Logger.getLogger(RefundController.class);
     @Autowired
     private RefundService refundService;
 
@@ -31,11 +34,20 @@ public class RefundController {
                                    @RequestParam(required = false, defaultValue = "10") int pageSize, HttpServletRequest request) {
         log.info("查询退款列表getFamilies:jailId=" + jailId + ";prisonName="+ prisonerName+ ";phone="+phone+";name="+name+";indexPage=" + indexPage + ";PageSize=" + pageSize);
         try {
-            List<Drawback> drawbacks = refundService.getDrawbacks(jailId, prisonerName, phone, name, indexPage, pageSize);
-            int drawbackSize = refundService.countDrawbacks(jailId, prisonerName, phone, name, indexPage, pageSize);
+            HttpSession session = request.getSession();
+            Sysuser u  = (Sysuser)session.getAttribute("s_user");
             JSONObject obj = new JSONObject();
-            obj.put("drawbacks", drawbacks);
-            obj.put("drawbackSize", drawbackSize);
+            if (u.getRoleId() == 1){
+                List<Drawback> drawbacks = refundService.getDrawbacks(jailId, prisonerName, phone, name, 1,indexPage, pageSize);
+                int drawbackSize = refundService.countDrawbacks(jailId, prisonerName, phone, name, 1,indexPage, pageSize);
+                obj.put("drawbacks", drawbacks);
+                obj.put("drawbackSize", drawbackSize);
+            }else if (u.getRoleId() == 4){
+                List<Drawback> drawbacks = refundService.getDrawbacks(jailId, prisonerName, phone, name, 0,indexPage, pageSize);
+                int drawbackSize = refundService.countDrawbacks(jailId, prisonerName, phone, name, 0,indexPage, pageSize);
+                obj.put("drawbacks", drawbacks);
+                obj.put("drawbackSize", drawbackSize);
+            }
             return ErrorEnums.getResult(ErrorEnums.SUCCESS, "查询退款列表", obj);
         } catch (Exception e) {
             return ErrorEnums.getResult(ErrorEnums.SERVER_ERROR, null, null);
