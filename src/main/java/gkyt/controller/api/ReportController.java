@@ -57,7 +57,7 @@ public class ReportController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser)session.getAttribute("s_user");
 		if(u==null){
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			retData.put("data", "");
 			return retData;
@@ -105,7 +105,7 @@ public class ReportController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser)session.getAttribute("s_user");
 		if(u==null){
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			retData.put("data", "");
 			return retData;

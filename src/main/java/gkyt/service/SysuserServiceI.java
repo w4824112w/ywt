@@ -24,4 +24,6 @@ public interface SysuserServiceI {
 	
 	public int delete(String id);
 	
+	public boolean delBatch(String[] ids);
+	
 }

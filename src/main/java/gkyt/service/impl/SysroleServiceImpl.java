@@ -98,5 +98,20 @@ public class SysroleServiceImpl implements SysroleServiceI {
 		}
 	}
 
+	@Transactional
+	public boolean delBatch(String[] ids) {
+		int ret=0;
+		for(String id:ids){
+			sysroleMapper.deleteRoleMenu(id);
+			int count=sysroleMapper.delete(id);
+			ret=ret+count;
+		}
+		if(ret==ids.length){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 }

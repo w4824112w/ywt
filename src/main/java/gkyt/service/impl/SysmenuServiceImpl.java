@@ -98,5 +98,20 @@ public class SysmenuServiceImpl implements SysmenuServiceI {
 		return sysmenuMapper.getByRoleId(roleId);
 	}
 
+	@Transactional
+	public boolean delBatch(String[] ids) {
+		int ret=0;
+		for(String id:ids){
+			sysmenuMapper.deleteMenuRole(id);
+			int count=sysmenuMapper.delete(id);
+			ret=ret+count;
+		}
+		if(ret==ids.length){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 }

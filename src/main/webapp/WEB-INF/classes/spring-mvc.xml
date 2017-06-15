@@ -95,24 +95,6 @@ http://www.springframework.org/schema/task/spring-task-4.3.xsd">
 	  </mvc:interceptor>  
 	</mvc:interceptors> -->
 	
-	<!-- 拦截器 -->
-	<mvc:interceptors>
-	  <mvc:interceptor>  
-	  <!--  需拦截的地址 -->  
-	 <!-- 一级目录  --> 
-	   <mvc:mapping path="/*.do" />  
-	   <mvc:mapping path="/*.ajax" />  
-	   <mvc:mapping path="/*.htm" />  
-	  
-	 <!-- 二级目录 -->  
-	   <mvc:mapping path="/*/*.do" />  
-	   <mvc:mapping path="/*/*.ajax" />  
-	   <mvc:mapping path="/*/*.htm" />  
-	  <!--  需排除拦截的地址 -->  
-	   <!-- <mvc:exclude-mapping path="/login.do"/>  --> 
-	   <bean class="gkyt.interceptors.AuthInterceptor" />  
-	  </mvc:interceptor>  
-	</mvc:interceptors>
 
 <!-- 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"/>过滤根目录

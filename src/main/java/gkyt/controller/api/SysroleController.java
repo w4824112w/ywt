@@ -64,7 +64,7 @@ public class SysroleController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser) session.getAttribute("s_user");
 		if (u == null) {
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			retData.put("data", "");
 			return retData;
@@ -115,7 +115,7 @@ public class SysroleController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser) session.getAttribute("s_user");
 		if (u == null) {
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			retData.put("data", "");
 			return retData;
@@ -148,7 +148,7 @@ public class SysroleController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser) session.getAttribute("s_user");
 		if (u == null) {
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			retData.put("data", "");
 			return retData;
@@ -180,7 +180,7 @@ public class SysroleController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser) session.getAttribute("s_user");
 		if (u == null) {
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			retData.put("data", "");
 			return retData;
@@ -217,7 +217,7 @@ public class SysroleController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser)session.getAttribute("s_user");
 		if(u==null){
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			return retData;
 		}
@@ -258,7 +258,7 @@ public class SysroleController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser) session.getAttribute("s_user");
 		if (u == null) {
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			return retData;
 		}
@@ -292,7 +292,7 @@ public class SysroleController {
 		HttpSession session = request.getSession();
 		Sysuser u = (Sysuser) session.getAttribute("s_user");
 		if (u == null) {
-			retData.put("code", "1");
+			retData.put("code", "2");
 			retData.put("msg", "用户已超时，请退出登录");
 			return retData;
 		}
@@ -315,5 +315,44 @@ public class SysroleController {
 		}
 
 	}
-
+	
+	/**
+	 * 批量删除角色
+	 * @param request
+	 * @param response
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value ="/batchDelete",method = { RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Map<String,Object> batchDelete(String[] ids,HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> retData=new HashMap<String,Object>();
+		
+		HttpSession session = request.getSession();
+		Sysuser u = (Sysuser)session.getAttribute("s_user");
+		if(u==null){
+			retData.put("code", "2");
+			retData.put("msg", "用户已超时，请退出登录");
+			return retData;
+		}
+		
+		try {
+			if(sysroleService.delBatch(ids)){
+				retData.put("code", "0");
+				retData.put("msg", "批量删除角色成功");
+				return retData;
+			}else{
+				retData.put("code", "1");
+				retData.put("msg", "批量删除角色失败");
+				return retData;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			retData.put("code", "1");
+			retData.put("msg", "系统出现异常");
+			return retData;
+		}
+		
+	}
+	
 }

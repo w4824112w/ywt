@@ -27,4 +27,6 @@ public interface SysroleServiceI {
 	
 	public boolean saveRoleMenu(String[] menuIds,String roleId);
 	
+	public boolean delBatch(String[] ids);
+	
 }

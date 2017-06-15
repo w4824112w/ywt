@@ -47,9 +47,14 @@ public class AuthInterceptor implements HandlerInterceptor {
 		return true;*/
 		
 		//ajax跨域
-        response.setHeader("Access-Control-Allow-Headers", "X-Requested-With, accept, content-type, xxxx");
-        response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
-        response.setHeader("Access-Control-Allow-Origin", "*");  
+	//	response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+		response.addHeader("Access-Control-Allow-Methods","GET, POST, PUT, DELETE");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //    response.setHeader("Access-Control-Allow-Headers", "Authentication");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.addHeader("Access-Control-Max-Age", "1800");// 30 min
+        
         return true;
 		
 

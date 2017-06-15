@@ -29,4 +29,5 @@ public interface SysmenuServiceI {
 	
 	public int delete(String id);
 	
+	public boolean delBatch(String[] ids);
 }

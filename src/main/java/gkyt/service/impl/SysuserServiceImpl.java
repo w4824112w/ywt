@@ -95,5 +95,19 @@ public class SysuserServiceImpl implements SysuserServiceI {
 		return sysuserMapper.delete(id);
 	}
 
+	@Transactional
+	public boolean delBatch(String[] ids) {
+		int ret=0;
+		for(String id:ids){
+			int count=sysuserMapper.delete(id);
+			ret=ret+count;
+		}
+		if(ret==ids.length){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 }
