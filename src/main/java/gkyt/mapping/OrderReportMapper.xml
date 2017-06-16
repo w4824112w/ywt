@@ -14,11 +14,13 @@
 	
 	<select id="dailyReport" resultType="Map" >
 		select jail_id,count(0) as number,0 as status from orders 
-		 where date_format(created_at,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d') and `status`='TRADE_SUCCESS'
+		 where date_format(created_at,'%Y-%m-%d')=date_format(date_sub(curdate(),interval 1 day),'%Y-%m-%d')
+		 and `status`='TRADE_SUCCESS' 
 		 group by jail_id
 		UNION ALL
 		select jail_id,count(0) as number,1 as status from orders 
-		 where date_format(created_at,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d') and `status`!='TRADE_SUCCESS'
+		 where date_format(created_at,'%Y-%m-%d')=date_format(date_sub(curdate(),interval 1 day),'%Y-%m-%d')
+		 and `status`!='TRADE_SUCCESS'
 		 group by jail_id
 	</select>
 	

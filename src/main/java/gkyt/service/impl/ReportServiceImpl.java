@@ -7,6 +7,7 @@ import java.util.Map;
 import gkyt.commons.paginator.domain.PageBounds;
 import gkyt.commons.paginator.domain.PageList;
 import gkyt.commons.paginator.domain.PageResult;
+import gkyt.commons.utils.DateUtil;
 import gkyt.dao.OrderReportMapper;
 import gkyt.dao.RegisterReportMapper;
 import gkyt.model.RegisterReport;
@@ -43,7 +44,7 @@ public class ReportServiceImpl implements ReportServiceI {
 			RegisterReport report=new RegisterReport();
 			report.setJailId(Integer.parseInt(obj.get("jail_id").toString()));
 			report.setNumber(Integer.parseInt(obj.get("number").toString()));
-			report.setCreatedAt(new Date());
+			report.setCreatedAt(DateUtil.getBeforeDay(new Date()));
 			registerReportMapper.save(report);
 		}
 	}
@@ -56,7 +57,7 @@ public class ReportServiceImpl implements ReportServiceI {
 			report.setJailId(Integer.parseInt(obj.get("jail_id").toString()));
 			report.setNumber(Integer.parseInt(obj.get("number").toString()));
 			report.setStatus(Integer.parseInt(obj.get("status").toString()));
-			report.setCreatedAt(new Date());
+			report.setCreatedAt(DateUtil.getBeforeDay(new Date()));
 			orderReportMapper.save(report);
 		}
 	}

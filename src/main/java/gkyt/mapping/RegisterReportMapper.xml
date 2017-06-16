@@ -13,7 +13,7 @@
 	
 	<select id="dailyReport" resultType="Map" >
 		select jail_id,count(0) as number from registrations 
-		where date_format(created_at,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')
+		where date_format(created_at,'%Y-%m-%d')=date_format(date_sub(curdate(),interval 1 day),'%Y-%m-%d')
  		group by jail_id
 	</select>
 	
