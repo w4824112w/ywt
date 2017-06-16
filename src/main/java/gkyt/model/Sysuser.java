@@ -25,6 +25,9 @@ public class Sysuser implements Serializable{
 	private Date updatedAt;
 	private Sysrole role;
 	
+	private String jailName;
+	private String roleName;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -96,6 +99,18 @@ public class Sysuser implements Serializable{
 	}
 	public void setRole(Sysrole role) {
 		this.role = role;
+	}
+	public String getJailName() {
+		return jailName;
+	}
+	public void setJailName(String jailName) {
+		this.jailName = jailName;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 

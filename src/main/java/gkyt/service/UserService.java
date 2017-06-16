@@ -1,18 +1,21 @@
 package gkyt.service;
 
 import com.alibaba.druid.util.StringUtils;
-import com.alibaba.dubbo.config.annotation.Service;
+
 import gkyt.dao.UserMapper;
 import gkyt.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
 import gkyt.utils.BCrypt;
 
 /**
  * Created by lyt38 on 2017/6/9.
  */
-@Service
+@Service("userService")
 public class UserService {
     @Autowired
     private UserMapper userMapper;

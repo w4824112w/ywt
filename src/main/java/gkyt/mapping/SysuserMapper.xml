@@ -41,24 +41,25 @@
 	
 	<select id="findPage" parameterType="gkyt.pojo.SysuserDto" resultMap="BaseResultMap">
 	     select 
-	     <include refid="Base_Column_List" />
-	     from tb_sysuser where 1=1
+	     u.*,j.title as jailName,r.role_name as roleName
+	     from tb_sysuser u left join jails j on u.jail_id=j.id LEFT JOIN tb_sysrole r on u.role_id=r.id 
+	     where 1=1
 	     <if test="roleId != null and roleId != ''">
-		     and role_id = #{roleId,jdbcType=VARCHAR} 
+		     and u.role_id = #{roleId,jdbcType=VARCHAR} 
 		 </if>
 		<if test="status != null and status != ''">
-		     and status = #{status,jdbcType=VARCHAR} 
+		     and u.status = #{status,jdbcType=VARCHAR} 
 		 </if>
 	   	 <if test="loginName != null and loginName != ''">
-		     and login_name like '%' || #{loginName,jdbcType=VARCHAR} || '%'
+		     and u.login_name like '%' || #{loginName,jdbcType=VARCHAR} || '%'
 		 </if>
 	   	 <if test="startTime != null and startTime != ''">
-		     and created_at &gt;= #{startTime,jdbcType=VARCHAR} 
+		     and u.created_at &gt;= #{startTime,jdbcType=VARCHAR} 
 		 </if>
 		 <if test="endTime != null and endTime != ''">
-		     and created_at &lt;= #{endTime,jdbcType=VARCHAR} 
+		     and u.created_at &lt;= #{endTime,jdbcType=VARCHAR} 
 		 </if>
-	      order by id desc
+	      order by u.id desc
 	</select>
 	
   	<update id="delete" parameterType="java.lang.String">

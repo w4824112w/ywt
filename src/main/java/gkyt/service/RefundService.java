@@ -1,12 +1,13 @@
 package gkyt.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import gkyt.dao.DrawBackCustomMapper;
 import gkyt.dao.DrawbackLogMapper;
 import gkyt.dao.DrawbackMapper;
 import gkyt.model.Drawback;
 import gkyt.model.DrawbackLog;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * Created by lyt38 on 2017/6/12.
  */
-@Service
+@Service("refundService")
 public class RefundService {
     @Autowired
     private DrawBackCustomMapper drawBackCustomMapper;

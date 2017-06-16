@@ -1,11 +1,13 @@
 package gkyt.service;
 
 import com.alibaba.druid.util.StringUtils;
-import com.alibaba.dubbo.config.annotation.Service;
+
 import gkyt.dao.JailCustomMapper;
 import gkyt.dao.JailMapper;
 import gkyt.model.Jail;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +17,7 @@ import java.util.Map;
 /**
  * Created by lyt38 on 2017/6/8.
  */
-@Service
+@Service("jailService")
 public class JailService {
     @Autowired
     private JailMapper jailMapper;

@@ -1,10 +1,11 @@
 package gkyt.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import gkyt.dao.FamilyCustomMapper;
 import gkyt.dao.FamilyMapper;
 import gkyt.model.Family;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Map;
 /**
  * Created by lyt38 on 2017/6/9.
  */
-@Service
+@Service("familyService")
 public class FamilyService {
     @Autowired
     private FamilyCustomMapper familyCustomMapper;
