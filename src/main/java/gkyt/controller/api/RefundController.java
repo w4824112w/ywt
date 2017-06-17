@@ -22,7 +22,7 @@ import java.util.List;
  * Created by lyt38 on 2017/6/12.
  */
 @Controller
-@RequestMapping("/refund")
+@RequestMapping("/api//refund")
 public class RefundController {
     private static final Logger log = Logger.getLogger(RefundController.class);
     @Autowired

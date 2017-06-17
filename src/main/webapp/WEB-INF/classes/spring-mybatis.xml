@@ -56,7 +56,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
          监控统计用的filter:stat
                 日志用的filter:log4j
                防御SQL注入的filter:wall -->
-        <property name="filters" value="[]" />       
+        <property name="filters" value="${filters}" />       
     </bean>
 
 	<!-- myBatis文件 -->

@@ -26,7 +26,7 @@ import java.util.Map;
  * Created by lyt38 on 2017/6/7.
  */
 @Controller
-@RequestMapping("/jail")
+@RequestMapping("/api//jail")
 public class JailController {
     private static final Logger log = Logger.getLogger(JailController.class);
     @Autowired

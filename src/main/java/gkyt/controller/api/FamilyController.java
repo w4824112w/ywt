@@ -19,7 +19,7 @@ import java.util.List;
  * Created by lyt38 on 2017/6/9.
  */
 @Controller
-@RequestMapping("/family")
+@RequestMapping("/api/family")
 public class FamilyController {
     private static final Logger log = Logger.getLogger(FamilyController.class);
     @Autowired
